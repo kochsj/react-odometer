@@ -10,16 +10,19 @@ class Odometer extends React.Component {
     }
 
     clickHandler(inc) {
-        console.log(inc)
+        let temp = this.state.miles + inc;
+        if(temp < 0){
+            temp = this.state.miles
+        } else if(temp > 9999){
+            temp = temp - 10000; 
+        }
         this.setState({
-            miles: this.state.miles + inc
+            miles: temp
         });
     }
 
     pad(num, digits){
-        
         let stringified = num.toString()
-      
         let numZeros = digits - stringified.length
         let str = ''
         for(let i=0; i<numZeros; i++){
@@ -32,7 +35,6 @@ class Odometer extends React.Component {
     render() {
         return (
             <>
-                <h1>Odometer Goes Here</h1>
                 <p>{this.pad(this.state.miles, 4)}</p>
                 <div>Ones: 
                     <button onClick={this.clickHandler.bind(this, 1)}> + </button>
